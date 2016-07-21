@@ -1,8 +1,12 @@
 class Article
   include Mongoid::Document
-  field :name
-  field :content
-  field :published_on, :type => Date
+  include Mongoid::Attributes::Dynamic
+
+  field :name, type: String
+  field :content, type: String
+  field :author_id, type: String
+
+  belongs_to :author, inverse_of: :articles, class_name: 'Author'
 
   validates :name, presence: true
 end
